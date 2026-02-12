@@ -76,6 +76,9 @@ export interface TransactionRecord {
     landShape: string;     // 土地の形状
     frontRoad: string;     // 前面道路（種類＋幅員）
     remarks: string;       // 備考
+    renovation: string;    // 改装
+    coverageRatio: string; // 建ぺい率
+    floorAreaRatio: string; // 容積率
 }
 
 // 市区町村

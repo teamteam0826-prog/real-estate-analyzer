@@ -82,6 +82,9 @@ export default function ScatterPlot({
             landShape: '',
             frontRoad: '',
             remarks: '',
+            renovation: '',
+            coverageRatio: '',
+            floorAreaRatio: '',
             isInput: true,
         },
     ];

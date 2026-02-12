@@ -39,6 +39,7 @@ const fieldGroups = [
             { key: 'buildingYear', label: '建築年' },
             { key: 'age', label: '築年数', format: (v: string | number) => `${v} 年` },
             { key: 'use', label: '用途' },
+            { key: 'renovation', label: '改装' },
         ],
     },
     {
@@ -49,6 +50,8 @@ const fieldGroups = [
             { key: 'frontRoad', label: '前面道路' },
             { key: 'direction', label: '前面道路の方位' },
             { key: 'classification', label: '都市計画' },
+            { key: 'coverageRatio', label: '建ぺい率', format: (v: string | number) => `${v} %` },
+            { key: 'floorAreaRatio', label: '容積率', format: (v: string | number) => `${v} %` },
         ],
     },
     {

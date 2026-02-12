@@ -230,6 +230,9 @@ function parseTransactionRecord(
                 raw['前面道路：幅員（ｍ）'] || raw.FrontRoadBreadth || '',
             ].filter(Boolean).join(' / ') || '',
             remarks: raw['備考'] || raw.Remarks || '',
+            renovation: raw['改装'] || raw.Renovation || '',
+            coverageRatio: raw['建ぺい率（％）'] || raw.CoverageRatio || '',
+            floorAreaRatio: raw['容積率（％）'] || raw.FloorAreaRatio || '',
         };
     } catch {
         return null;
