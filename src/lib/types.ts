@@ -57,11 +57,25 @@ export interface AnalysisResult {
 export interface TransactionRecord {
     unitPrice: number;    // 平米単価（万円/㎡）
     age: number;          // 築年数
-    area: number;         // 面積
+    area: number;         // 面積（㎡）
     price: number;        // 取引価格（万円）
     district: string;     // 地区名
     period: string;       // 取引時期
     type: string;         // 種別
+    // ── 追加フィールド（APIから取得可能な全情報） ──
+    municipality: string;  // 市区町村名
+    floorPlan: string;     // 間取り
+    structure: string;     // 建物構造（RC造、木造等）
+    buildingYear: string;  // 建築年（原文ママ）
+    use: string;           // 用途
+    purpose: string;       // 取引の目的
+    direction: string;     // 前面道路の方位
+    classification: string; // 都市計画区分
+    breadth: string;       // 間口
+    totalFloorArea: string; // 延床面積
+    landShape: string;     // 土地の形状
+    frontRoad: string;     // 前面道路（種類＋幅員）
+    remarks: string;       // 備考
 }
 
 // 市区町村

@@ -169,53 +169,72 @@ export default function ReportPage() {
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-sm">
+                    <div className="overflow-x-auto -mx-4 sm:mx-0">
+                        <table className="w-full text-sm min-w-[1200px]">
                             <thead>
-                                <tr className="border-b border-slate-200">
-                                    <th className="text-left py-3 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                        地区名
-                                    </th>
-                                    <th className="text-right py-3 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                        取引価格
-                                    </th>
-                                    <th className="text-right py-3 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                        面積
-                                    </th>
-                                    <th className="text-right py-3 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                        平米単価
-                                    </th>
-                                    <th className="text-right py-3 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                        築年数
-                                    </th>
-                                    <th className="text-left py-3 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                        取引時期
-                                    </th>
+                                <tr className="border-b-2 border-slate-200 bg-slate-50/80">
+                                    {[
+                                        { label: '市区町村', align: 'left' },
+                                        { label: '地区名', align: 'left' },
+                                        { label: '種別', align: 'left' },
+                                        { label: '取引価格', align: 'right' },
+                                        { label: '面積', align: 'right' },
+                                        { label: '平米単価', align: 'right' },
+                                        { label: '間取り', align: 'left' },
+                                        { label: '建物構造', align: 'left' },
+                                        { label: '建築年', align: 'left' },
+                                        { label: '築年数', align: 'right' },
+                                        { label: '用途', align: 'left' },
+                                        { label: '前面道路', align: 'left' },
+                                        { label: '土地形状', align: 'left' },
+                                        { label: '都市計画', align: 'left' },
+                                        { label: '取引時期', align: 'left' },
+                                        { label: '備考', align: 'left' },
+                                    ].map((col) => (
+                                        <th
+                                            key={col.label}
+                                            className={`text-${col.align} py-3 px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider whitespace-nowrap`}
+                                        >
+                                            {col.label}
+                                        </th>
+                                    ))}
                                 </tr>
                             </thead>
                             <tbody>
-                                {result.transactions.slice(0, 20).map((t, i) => (
+                                {result.transactions.slice(0, 50).map((t, i) => (
                                     <tr
                                         key={i}
                                         className="border-b border-slate-100 hover:bg-blue-50/50 transition-colors"
                                     >
-                                        <td className="py-3 px-4 text-slate-700 font-medium">{t.district || '-'}</td>
-                                        <td className="py-3 px-4 text-right text-slate-900 font-semibold">
+                                        <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{t.municipality || '-'}</td>
+                                        <td className="py-2.5 px-3 text-slate-700 font-medium whitespace-nowrap">{t.district || '-'}</td>
+                                        <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{t.type || '-'}</td>
+                                        <td className="py-2.5 px-3 text-right text-slate-900 font-semibold whitespace-nowrap">
                                             {t.price.toLocaleString()} 万円
                                         </td>
-                                        <td className="py-3 px-4 text-right text-slate-600">{t.area} ㎡</td>
-                                        <td className="py-3 px-4 text-right text-slate-900 font-semibold">
+                                        <td className="py-2.5 px-3 text-right text-slate-600 whitespace-nowrap">{t.area} ㎡</td>
+                                        <td className="py-2.5 px-3 text-right text-slate-900 font-semibold whitespace-nowrap">
                                             {t.unitPrice.toLocaleString()} 万円/㎡
                                         </td>
-                                        <td className="py-3 px-4 text-right text-slate-600">{t.age} 年</td>
-                                        <td className="py-3 px-4 text-slate-600">{t.period || '-'}</td>
+                                        <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{t.floorPlan || '-'}</td>
+                                        <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{t.structure || '-'}</td>
+                                        <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{t.buildingYear || '-'}</td>
+                                        <td className="py-2.5 px-3 text-right text-slate-600 whitespace-nowrap">{t.age} 年</td>
+                                        <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{t.use || '-'}</td>
+                                        <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{t.frontRoad || '-'}</td>
+                                        <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{t.landShape || '-'}</td>
+                                        <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{t.classification || '-'}</td>
+                                        <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{t.period || '-'}</td>
+                                        <td className="py-2.5 px-3 text-slate-500 text-xs max-w-[200px] truncate" title={t.remarks || ''}>
+                                            {t.remarks || '-'}
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
-                        {result.transactions.length > 20 && (
+                        {result.transactions.length > 50 && (
                             <p className="text-center text-sm text-slate-400 mt-4">
-                                他 {result.transactions.length - 20} 件の取引事例があります
+                                他 {result.transactions.length - 50} 件の取引事例があります
                             </p>
                         )}
                     </div>

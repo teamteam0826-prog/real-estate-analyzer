@@ -213,6 +213,23 @@ function parseTransactionRecord(
             district: raw.DistrictName || raw['地区名'] || '',
             period: raw.Period || raw['取引時点'] || '',
             type: type,
+            // ── 追加フィールド ──
+            municipality: raw.Municipality || raw['市区町村名'] || '',
+            floorPlan: raw.FloorPlan || raw['間取り'] || '',
+            structure: raw.Structure || raw['建物の構造'] || '',
+            buildingYear: buildYearStr,
+            use: raw['用途'] || raw.Use || '',
+            purpose: raw['今後の利用目的'] || raw.Purpose || '',
+            direction: raw['前面道路：方位'] || raw.Direction || '',
+            classification: raw['都市計画'] || raw.CityPlanning || '',
+            breadth: raw['間口'] || raw.Breadth || '',
+            totalFloorArea: raw['延床面積（㎡）'] || raw.TotalFloorArea || '',
+            landShape: raw['土地の形状'] || raw.LandShape || '',
+            frontRoad: [
+                raw['前面道路：種類'] || raw.FrontRoadType || '',
+                raw['前面道路：幅員（ｍ）'] || raw.FrontRoadBreadth || '',
+            ].filter(Boolean).join(' / ') || '',
+            remarks: raw['備考'] || raw.Remarks || '',
         };
     } catch {
         return null;

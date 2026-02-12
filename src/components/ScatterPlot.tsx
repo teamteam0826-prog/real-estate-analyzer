@@ -42,9 +42,13 @@ const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
                 <p>平米単価: <span className="text-white font-semibold">{data.unitPrice.toLocaleString()} 万円/㎡</span></p>
                 <p>築年数: <span className="text-white font-semibold">{data.age} 年</span></p>
                 {data.district && <p>地区: {data.district}</p>}
+                {data.municipality && <p>市区町村: {data.municipality}</p>}
                 {data.period && <p>取引時期: {data.period}</p>}
                 <p>面積: {data.area} ㎡</p>
                 <p>取引価格: {data.price.toLocaleString()} 万円</p>
+                {data.floorPlan && <p>間取り: {data.floorPlan}</p>}
+                {data.structure && <p>構造: {data.structure}</p>}
+                {data.use && <p>用途: {data.use}</p>}
             </div>
         </div>
     );
@@ -65,6 +69,19 @@ export default function ScatterPlot({
             district: '',
             period: '',
             type: '',
+            municipality: '',
+            floorPlan: '',
+            structure: '',
+            buildingYear: '',
+            use: '',
+            purpose: '',
+            direction: '',
+            classification: '',
+            breadth: '',
+            totalFloorArea: '',
+            landShape: '',
+            frontRoad: '',
+            remarks: '',
             isInput: true,
         },
     ];
