@@ -14,6 +14,9 @@ const fieldGroups = [
         fields: [
             { key: 'municipality', label: '市区町村' },
             { key: 'district', label: '地区名' },
+            { key: 'region', label: '地域' },
+            { key: 'municipalityCode', label: '市区町村CD' },
+            { key: 'districtCode', label: '地区CD' },
             { key: 'type', label: '種別' },
             { key: 'period', label: '取引時期' },
             { key: 'purpose', label: '今後の利用目的' },
@@ -55,9 +58,10 @@ const fieldGroups = [
         ],
     },
     {
-        title: '📝 備考',
+        title: '📝 備考・その他',
         icon: 'bg-slate-50',
         fields: [
+            { key: 'priceCategory', label: '価格情報区分' },
             { key: 'remarks', label: '備考' },
         ],
     },

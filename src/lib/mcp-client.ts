@@ -233,6 +233,10 @@ function parseTransactionRecord(
             renovation: raw['改装'] || raw.Renovation || '',
             coverageRatio: raw['建ぺい率（％）'] || raw.CoverageRatio || '',
             floorAreaRatio: raw['容積率（％）'] || raw.FloorAreaRatio || '',
+            region: raw.Region || raw['地域'] || '',
+            municipalityCode: raw.MunicipalityCode || raw['市区町村コード'] || '',
+            districtCode: raw.DistrictCode || raw['地区コード'] || '',
+            priceCategory: raw.PriceCategory || raw['価格分類'] || '',
         };
     } catch {
         return null;

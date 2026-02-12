@@ -85,6 +85,10 @@ export default function ScatterPlot({
             renovation: '',
             coverageRatio: '',
             floorAreaRatio: '',
+            region: '',
+            municipalityCode: '',
+            districtCode: '',
+            priceCategory: '',
             isInput: true,
         },
     ];

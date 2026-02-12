@@ -79,6 +79,10 @@ export interface TransactionRecord {
     renovation: string;    // 改装
     coverageRatio: string; // 建ぺい率
     floorAreaRatio: string; // 容積率
+    region: string;        // 地域
+    municipalityCode: string; // 市区町村コード
+    districtCode: string;  // 地区コード
+    priceCategory: string; // 価格分類
 }
 
 // 市区町村
