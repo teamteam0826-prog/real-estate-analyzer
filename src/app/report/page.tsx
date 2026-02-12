@@ -8,13 +8,15 @@ import { Badge } from '@/components/ui/badge';
 import RankCard from '@/components/RankCard';
 import PriceBarChart from '@/components/PriceBarChart';
 import ScatterPlot from '@/components/ScatterPlot';
-import { AnalysisResult } from '@/lib/types';
+import TransactionDetailModal from '@/components/TransactionDetailModal';
+import { AnalysisResult, TransactionRecord } from '@/lib/types';
 import { PREFECTURES } from '@/lib/prefectures';
 
 export default function ReportPage() {
     const router = useRouter();
     const [result, setResult] = useState<AnalysisResult | null>(null);
     const [locationName, setLocationName] = useState('');
+    const [selectedTransaction, setSelectedTransaction] = useState<TransactionRecord | null>(null);
 
     useEffect(() => {
         const stored = sessionStorage.getItem('analysisResult');
@@ -161,35 +163,33 @@ export default function ReportPage() {
             {/* 取引データ詳細テーブル */}
             <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm animate-fade-in delay-400">
                 <CardHeader>
-                    <CardTitle className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                        <span className="w-8 h-8 bg-emerald-50 rounded-lg flex items-center justify-center">
-                            📋
+                    <CardTitle className="text-lg font-bold text-slate-900 flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <span className="w-8 h-8 bg-emerald-50 rounded-lg flex items-center justify-center">
+                                📋
+                            </span>
+                            取引事例一覧（直近データ）
+                        </div>
+                        <span className="text-sm font-medium text-slate-400">
+                            全 {result.transactions.length} 件
                         </span>
-                        取引事例一覧（直近データ）
                     </CardTitle>
+                    <p className="text-xs text-slate-400 mt-1">行をクリックすると詳細を表示します</p>
                 </CardHeader>
                 <CardContent>
                     <div className="overflow-x-auto -mx-4 sm:mx-0">
-                        <table className="w-full text-sm min-w-[1200px]">
+                        <table className="w-full text-sm">
                             <thead>
                                 <tr className="border-b-2 border-slate-200 bg-slate-50/80">
                                     {[
-                                        { label: '市区町村', align: 'left' },
                                         { label: '地区名', align: 'left' },
-                                        { label: '種別', align: 'left' },
                                         { label: '取引価格', align: 'right' },
                                         { label: '面積', align: 'right' },
                                         { label: '平米単価', align: 'right' },
-                                        { label: '間取り', align: 'left' },
-                                        { label: '建物構造', align: 'left' },
-                                        { label: '建築年', align: 'left' },
                                         { label: '築年数', align: 'right' },
-                                        { label: '用途', align: 'left' },
-                                        { label: '前面道路', align: 'left' },
-                                        { label: '土地形状', align: 'left' },
-                                        { label: '都市計画', align: 'left' },
+                                        { label: '間取り', align: 'left' },
+                                        { label: '構造', align: 'left' },
                                         { label: '取引時期', align: 'left' },
-                                        { label: '備考', align: 'left' },
                                     ].map((col) => (
                                         <th
                                             key={col.label}
@@ -201,14 +201,18 @@ export default function ReportPage() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {result.transactions.slice(0, 50).map((t, i) => (
+                                {result.transactions.map((t, i) => (
                                     <tr
                                         key={i}
-                                        className="border-b border-slate-100 hover:bg-blue-50/50 transition-colors"
+                                        onClick={() => setSelectedTransaction(t)}
+                                        className="border-b border-slate-100 hover:bg-blue-50/80 transition-all cursor-pointer group"
                                     >
-                                        <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{t.municipality || '-'}</td>
-                                        <td className="py-2.5 px-3 text-slate-700 font-medium whitespace-nowrap">{t.district || '-'}</td>
-                                        <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{t.type || '-'}</td>
+                                        <td className="py-2.5 px-3 text-slate-700 font-medium whitespace-nowrap">
+                                            <div className="flex items-center gap-1.5">
+                                                <span>{t.district || t.municipality || '-'}</span>
+                                                <span className="opacity-0 group-hover:opacity-100 transition-opacity text-blue-400 text-xs">▶</span>
+                                            </div>
+                                        </td>
                                         <td className="py-2.5 px-3 text-right text-slate-900 font-semibold whitespace-nowrap">
                                             {t.price.toLocaleString()} 万円
                                         </td>
@@ -216,30 +220,23 @@ export default function ReportPage() {
                                         <td className="py-2.5 px-3 text-right text-slate-900 font-semibold whitespace-nowrap">
                                             {t.unitPrice.toLocaleString()} 万円/㎡
                                         </td>
+                                        <td className="py-2.5 px-3 text-right text-slate-600 whitespace-nowrap">{t.age} 年</td>
                                         <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{t.floorPlan || '-'}</td>
                                         <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{t.structure || '-'}</td>
-                                        <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{t.buildingYear || '-'}</td>
-                                        <td className="py-2.5 px-3 text-right text-slate-600 whitespace-nowrap">{t.age} 年</td>
-                                        <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{t.use || '-'}</td>
-                                        <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{t.frontRoad || '-'}</td>
-                                        <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{t.landShape || '-'}</td>
-                                        <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{t.classification || '-'}</td>
                                         <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{t.period || '-'}</td>
-                                        <td className="py-2.5 px-3 text-slate-500 text-xs max-w-[200px] truncate" title={t.remarks || ''}>
-                                            {t.remarks || '-'}
-                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
-                        {result.transactions.length > 50 && (
-                            <p className="text-center text-sm text-slate-400 mt-4">
-                                他 {result.transactions.length - 50} 件の取引事例があります
-                            </p>
-                        )}
                     </div>
                 </CardContent>
             </Card>
+
+            {/* 取引事例詳細モーダル */}
+            <TransactionDetailModal
+                transaction={selectedTransaction}
+                onClose={() => setSelectedTransaction(null)}
+            />
 
             {/* 免責事項 */}
             <div className="mt-8 p-4 rounded-xl bg-amber-50/80 border border-amber-200/60 text-sm text-amber-800">
